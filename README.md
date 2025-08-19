@@ -122,3 +122,16 @@ Les exceptions personnalisées sont gérées via APIException et RequestExceptio
 
 <img src="Capture d’écran 2025-08-19 170257.jpg" alt="Capture Classes" width="600"/>
 
+<img src="Capture d’écran 2025-08-19 181625.jpg" alt="Capture Classes" width="600"/>
+
+<img src="Capture d’écran 2025-08-19 181703.jpg" alt="Capture Classes" width="600"/>
+
+<img src="Capture d’écran 2025-08-19 182047.jpg" alt="Capture Classes" width="600"/>
+
+<img src="Capture d’écran 2025-08-19 182203.jpg" alt="Capture Classes" width="600"/>
+
+<img src="Capture d’écran 2025-08-19 182312.jpg" alt="Capture Classes" width="600"/>
+
+
+<img src="Capture d’écran 2025-08-19 182408.jpg" alt="Capture Classes" width="600"/>
+
