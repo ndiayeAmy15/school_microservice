@@ -1,7 +1,9 @@
 package com.isiexamen.school.services;
 
+import com.isiexamen.school.dao.ISectorsRepository;
 import com.isiexamen.school.dto.Classes;
 import com.isiexamen.school.entities.ClassesEntity;
+import com.isiexamen.school.entities.SectorsEntity;
 import com.isiexamen.school.exception.RequestException;
 import com.isiexamen.school.mapping.ClassesMapper;
 import com.isiexamen.school.dao.IClassesRepository;
@@ -27,16 +29,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class ClassesService {
     private IClassesRepository iClassesRepository;
+    private ISectorsRepository iSectorsRepository;
     private ClassesMapper classesMapper;
 
     //Sert à récupérer des messages localisés à partir de fichiers messages.properties
     MessageSource messageSource;
 
     //injecte les dépendances via l’injection par constructeur
-    public ClassesService(IClassesRepository iClassesRepository,ClassesMapper classesMapper,MessageSource messageSource){
+    public ClassesService(IClassesRepository iClassesRepository,ISectorsRepository iSectorsRepository,ClassesMapper classesMapper,MessageSource messageSource){
         this.iClassesRepository=iClassesRepository;
         this.classesMapper=classesMapper;
         this.messageSource=messageSource;
+        this.iSectorsRepository=iSectorsRepository;
     }
 
     //Met en cache le résultat d’une méthode pour éviter des appels répétés
@@ -60,6 +64,12 @@ public class ClassesService {
 
     @Transactional
     public Classes createClasse(Classes classe){
+        SectorsEntity sector = iSectorsRepository.findById(classe.getSector())
+                .orElseThrow(() -> new RuntimeException("Sector not found"));
+        ClassesEntity entity = new ClassesEntity();
+        entity.setClassName(classe.getClassName());
+        entity.setDescription(classe.getDescription());
+        entity.setSector(sector);
         return classesMapper.toClasses(iClassesRepository.save(classesMapper.fromClasses(classe)));
 
     }
@@ -69,8 +79,11 @@ public class ClassesService {
     public Classes updateClasse(int id,Classes classes){
         ClassesEntity existingClasseEntity = iClassesRepository.findById((long) id)
             .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
+        SectorsEntity sector = iSectorsRepository.findById(classes.getSector())
+                .orElseThrow(() -> new RuntimeException("Sector not found"));
         existingClasseEntity.setClassName(classes.getClassName());
         existingClasseEntity.setDescription(classes.getDescription());
+        existingClasseEntity.setSector(sector);
 
         ClassesEntity classesEntityUpdate=iClassesRepository.save(existingClasseEntity);
         return classesMapper.toClasses(classesEntityUpdate);
