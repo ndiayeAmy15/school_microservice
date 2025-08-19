@@ -120,4 +120,6 @@ Les exceptions personnalisées sont gérées via APIException et RequestExceptio
 
 ## 📡 API Endpoints (CRUD Classes)
 
+![Ger Classes](Capture d’écran 2025-08-19 170257.jpg)
+
 
